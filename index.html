@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YUKYUNG's Professional Portfolio - Enterprise Software Development">
+    <meta name="keywords" content="웹개발, 프로그래밍, 포트폴리오, API, ERP, AWS">
+    <title>YUKYUNG's HomePage - Enterprise Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Enterprise Design System */
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --success-color: #48bb78;
+            --danger-color: #f56565;
+            --warning-color: #ed8936;
+            --info-color: #4299e1;
+            --transition-speed: 0.3s;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.2);
+            
+            /* Responsive Breakpoints */
+            --mobile: 320px;
+            --mobile-lg: 480px;
+            --tablet: 768px;
+            --desktop: 1024px;
+            --desktop-lg: 1280px;
+            --desktop-xl: 1536px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            background-color: #f7fafc;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+        }
+
+        /* Dark Mode */
+        body.dark {
+            background-color: #1a202c;
+            color: #e2e8f0;
+        }
+
+        body.dark .bg-white {
+            background-color: #2d3748;
+        }
+
+        body.dark .text-gray-700 {
+            color: #cbd5e0;
+        }
+
+        body.dark .text-gray-600 {
+            color: #a0aec0;
+        }
+
+        body.dark .border-gray-200 {
+            border-color: #4a5568;
+        }
+
+        body.dark .bg-gray-50 {
+            background-color: #2d3748;
+        }
+
+        body.dark .shadow-lg {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        /* Gradient Text Animation */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-animation 3s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+            display: inline-block;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Tab Styles */
+        .tab {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            color: #718096;
+            transition: all var(--transition-speed);
+            position: relative;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+        }
+
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: translateX(-50%);
+            transition: width var(--transition-speed);
+        }
+
+        .tab:hover::after,
+        .tab.active::after {
+            width: 100%;
+        }
+
+        .tab.active {
+            color: var(--primary-color);
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity var(--transition-speed);
+        }
+
+        .modal-backdrop.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            transform: scale(0.9) translateY(20px);
+            opacity: 0;
+            transition: all var(--transition-speed);
+        }
+
+        .modal-backdrop.show .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(102, 126, 234, 0.2);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 28px;
+            background: #cbd5e0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background var(--transition-speed);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary-color);
+        }
+
+        .toggle-switch-handle {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform var(--transition-speed);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-switch.active .toggle-switch-handle {
+            transform: translateX(28px);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--transition-speed);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Advanced Responsive System */
+        
+        /* Mobile First: 320px - 479px */
+        @media (max-width: 479px) {
+            html { font-size: 14px; }
+            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            h1 { font-size: 1.75rem !important; }
+            h2 { font-size: 1.5rem !important; }
+            h3 { font-size: 1.25rem !important; }
+            
+            .gradient-text {
+                font-size: 1.5rem !important;
+            }
+            
+            /* Single column for all grids on mobile */
+            .grid,
+            [class*="grid-cols"] {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* Stack navigation */
+            nav ul {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            /* Full width buttons on mobile */
+            .btn-primary {
+                width: 100%;
+                text-align: center;
+            }
+            
+            /* Modal adjustments */
+            .modal-content {
+                margin: 0.5rem;
+                max-height: 95vh;
+            }
+            
+            /* Hide toggle labels on mobile */
+            .toggle-label {
+                display: none;
+            }
+            
+            /* Tabs scroll horizontally */
+            .tab-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .tab {
+                white-space: nowrap;
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+            
+            /* Form adjustments */
+            form input,
+            form textarea {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+            
+            /* Project cards full width */
+            .project-card {
+                width: 100%;
+            }
+            
+            /* GitHub section */
+            #github .flex {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            /* Reduce padding on mobile */
+            section {
+                padding: 2rem 0;
+            }
+            
+            .card-hover {
+                padding: 1rem;
+            }
+        }
+        
+        /* Mobile Large: 480px - 767px */
+        @media (min-width: 480px) and (max-width: 767px) {
+            html { font-size: 15px; }
+            
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+            
+            /* 2 columns for skills */
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            /* Navigation improvements */
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                flex: 0 0 auto;
+            }
+            
+            .tab {
+                padding: 0.625rem 1.25rem;
+            }
+        }
+        
+        /* Tablet: 768px - 1023px */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            html { font-size: 16px; }
+            
+            .container {
+                max-width: 750px;
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+            
+            /* 3 columns for skills */
+            .skills-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+            
+            /* 2 columns for projects */
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            h1 { font-size: 2.5rem !important; }
+            h2 { font-size: 2rem !important; }
+            
+            .modal-content {
+                max-width: 90%;
+            }
+        }
+        
+        /* Desktop: 1024px - 1279px */
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .container {
+                max-width: 990px;
+            }
+            
+            /* 4 columns for skills */
+            .skills-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+            
+            /* 3 columns for projects */
+            .project-grid {
+                grid-template-columns: repeat(3, 1fr) !important;
+            }
+        }
+        
+        /* Desktop Large: 1280px - 1535px */
+        @media (min-width: 1280px) and (max-width: 1535px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            /* 5 columns for skills */
+            .skills-grid {
+                grid-template-columns: repeat(5, 1fr) !important;
+            }
+        }
+        
+        /* Desktop XL: 1536px+ */
+        @media (min-width: 1536px) {
+            .container {
+                max-width: 1400px;
+            }
+            
+            html { font-size: 18px; }
+            
+            /* 6 columns for skills on very large screens */
+            .skills-grid {
+                grid-template-columns: repeat(6, 1fr) !important;
+            }
+            
+            /* 4 columns for projects */
+            .project-grid {
+                grid-template-columns: repeat(4, 1fr) !important;
+            }
+        }
+        
+        /* Landscape Mobile Special Handling */
+        @media (max-height: 500px) and (orientation: landscape) {
+            header {
+                position: relative;
+            }
+            
+            .modal-content {
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            
+            section {
+                padding: 1rem 0;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .card-hover:hover {
+                transform: none;
+            }
+            
+            .btn-primary {
+                padding: 1rem 2rem; /* Larger touch targets */
+            }
+            
+            .tab {
+                padding: 1rem 1.5rem; /* Larger touch targets */
+            }
+            
+            /* Disable hover effects on touch devices */
+            .dropdown:hover .dropdown-menu {
+                opacity: 0;
+                visibility: hidden;
+            }
+            
+            /* Add click handler for dropdowns on mobile */
+            .dropdown.active .dropdown-menu {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Print Responsive */
+        @media print {
+            html { font-size: 12pt; }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            /* Sharper borders and shadows for retina */
+            .card-hover {
+                box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            }
+        }
+        
+        /* Utility Classes for Responsive */
+        .mobile-only { display: block; }
+        .tablet-only { display: none; }
+        .desktop-only { display: block; }
+        .tablet-up { display: block; }
+        .desktop-up { display: block; }
+        .tablet-down { display: block; }
+        
+        @media (max-width: 767px) {
+            .mobile-only { display: block !important; }
+            .tablet-up { display: none !important; }
+            .desktop-up { display: none !important; }
+            .desktop-only { display: none !important; }
+        }
+        
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .tablet-only { display: block !important; }
+            .mobile-only { display: none !important; }
+            .desktop-up { display: none !important; }
+            .desktop-only { display: none !important; }
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-only { display: none !important; }
+        }
+        
+        @media (min-width: 1024px) {
+            .desktop-only { display: block !important; }
+            .mobile-only { display: none !important; }
+            .tablet-only { display: none !important; }
+            .tablet-down { display: none !important; }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        body.dark ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #5a67d8, #6b46a0);
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Print Styles */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-lg no-print">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row justify-between items-center py-3 sm:py-4">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold gradient-text mb-3 sm:mb-0">YUKYUNG's HomePage</h1>
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <!-- Dark Mode Toggle -->
+                    <div class="flex items-center gap-2">
+                        <span class="toggle-label text-sm font-medium desktop-only">Mode</span>
+                        <button id="theme-toggle" class="toggle-switch" aria-label="Toggle dark mode">
+                            <span class="toggle-switch-handle"></span>
+                        </button>
+                    </div>
+                    <!-- Language Toggle -->
+                    <div class="flex items-center gap-2">
+                        <span class="toggle-label text-sm font-medium desktop-only">Lang</span>
+                        <button id="lang-toggle" class="toggle-switch" aria-label="Toggle language">
+                            <span class="toggle-switch-handle flex items-center justify-center text-xs font-bold">KO</span>
+                        </button>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="mobile-only p-2 rounded-lg hover:bg-gray-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation -->
+        <nav id="nav-menu" class="bg-gray-50 border-t border-gray-200 tablet-up">
+            <div class="container mx-auto px-4">
+                <ul class="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-4 lg:gap-6 py-3">
+                    <li><a href="#skills" class="nav-link block py-2 sm:py-1 font-semibold hover:text-purple-600 transition-colors text-center sm:text-left" data-ko="사용 언어" data-en="Skills">사용 언어</a></li>
+                    <li class="dropdown relative">
+                        <a href="#projects" class="nav-link block py-2 sm:py-1 font-semibold hover:text-purple-600 transition-colors text-center sm:text-left" data-ko="구현 사례" data-en="Projects">구현 사례</a>
+                        <ul class="dropdown-menu absolute left-0 sm:left-auto mt-2 w-full sm:w-48 bg-white rounded-lg shadow-xl py-2">
+                            <li><a href="#" data-tab="ecommerce" class="project-menu-item block px-4 py-2 hover:bg-purple-50" data-ko="쇼핑몰 구축" data-en="E-commerce">쇼핑몰 구축</a></li>
+                            <li><a href="#" data-tab="api" class="project-menu-item block px-4 py-2 hover:bg-purple-50" data-ko="API 연동" data-en="API Integration">API 연동</a></li>
+                            <li><a href="#" data-tab="erp" class="project-menu-item block px-4 py-2 hover:bg-purple-50">ERP</a></li>
+                            <li><a href="#" data-tab="automation" class="project-menu-item block px-4 py-2 hover:bg-purple-50" data-ko="자동화" data-en="Automation">자동화</a></li>
+                            <li><a href="#" data-tab="database" class="project-menu-item block px-4 py-2 hover:bg-purple-50" data-ko="데이터베이스" data-en="Database">데이터베이스</a></li>
+                            <li><a href="#" data-tab="cloud" class="project-menu-item block px-4 py-2 hover:bg-purple-50" data-ko="클라우드" data-en="Cloud">클라우드</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#github" class="nav-link block py-2 sm:py-1 font-semibold hover:text-purple-600 transition-colors text-center sm:text-left" data-ko="깃허브" data-en="GitHub">깃허브</a></li>
+                    <li><a href="#contact" class="nav-link block py-2 sm:py-1 font-semibold hover:text-purple-600 transition-colors text-center sm:text-left" data-ko="연락처" data-en="Contact">연락처</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Mobile Navigation (Hidden by default) -->
+        <nav id="mobile-nav" class="hidden bg-gray-50 border-t border-gray-200">
+            <div class="container mx-auto px-4 py-3">
+                <ul class="space-y-2">
+                    <li><a href="#skills" class="block py-2 font-semibold text-center" data-ko="사용 언어" data-en="Skills">사용 언어</a></li>
+                    <li><a href="#projects" class="block py-2 font-semibold text-center" data-ko="구현 사례" data-en="Projects">구현 사례</a></li>
+                    <li><a href="#github" class="block py-2 font-semibold text-center" data-ko="깃허브" data-en="GitHub">깃허브</a></li>
+                    <li><a href="#contact" class="block py-2 font-semibold text-center" data-ko="연락처" data-en="Contact">연락처</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+        <!-- Skills Section -->
+        <section id="skills" class="fade-in mb-8 sm:mb-12 lg:mb-16">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 lg:mb-12" data-ko="사용 언어 및 기술" data-en="Languages & Skills">사용 언어 및 기술</h2>
+            <div class="skills-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">JavaScript</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">TypeScript</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">Python</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">Java</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">React</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">Node.js</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">AWS</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">Docker</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">MySQL</p>
+                </div>
+                <div class="card-hover p-3 sm:p-4 lg:p-6 bg-white rounded-lg shadow-lg text-center">
+                    <p class="font-bold text-sm sm:text-base">MongoDB</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="fade-in mb-8 sm:mb-12 lg:mb-16">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 lg:mb-12" data-ko="구현 사례" data-en="Projects">구현 사례</h2>
+            
+            <!-- Project Tabs -->
+            <div class="tab-container flex flex-nowrap sm:flex-wrap justify-start sm:justify-center border-b border-gray-200 mb-6 sm:mb-8 overflow-x-auto">
+                <button class="tab active whitespace-nowrap" data-tab="ecommerce" data-ko="쇼핑몰" data-en="E-commerce">쇼핑몰</button>
+                <button class="tab whitespace-nowrap" data-tab="api" data-ko="API" data-en="API">API</button>
+                <button class="tab whitespace-nowrap" data-tab="erp" data-ko="ERP" data-en="ERP">ERP</button>
+                <button class="tab whitespace-nowrap" data-tab="automation" data-ko="자동화" data-en="Automation">자동화</button>
+                <button class="tab whitespace-nowrap" data-tab="database" data-ko="DB" data-en="Database">DB</button>
+                <button class="tab whitespace-nowrap" data-tab="cloud" data-ko="클라우드" data-en="Cloud">클라우드</button>
+            </div>
+
+            <!-- Project Content -->
+            <div id="project-content">
+                <!-- E-commerce Projects -->
+                <div class="project-panel" data-panel="ecommerce">
+                    <div class="project-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="project-card card-hover p-4 sm:p-6 bg-white rounded-lg shadow-lg"
+                             data-title-ko="Shopify 통합 물류 쇼핑몰"
+                             data-title-en="Shopify Integrated E-commerce"
+                             data-description-ko="Shopify와 연동된 B2B/B2C 통합 쇼핑몰 구축. 자체 WMS 시스템과 배송대행 서비스를 통합하여 글로벌 이커머스 플랫폼 구현."
+                             data-description-en="Built B2B/B2C integrated e-commerce with Shopify. Implemented global e-commerce platform by integrating custom WMS and forwarding service.">
+                            <h3 class="text-lg sm:text-xl font-bold mb-2" data-ko="Shopify 통합 물류 쇼핑몰" data-en="Shopify Integrated E-commerce">Shopify 통합 물류 쇼핑몰</h3>
+                            <p class="text-sm sm:text-base text-gray-600" data-ko="B2B/B2C 통합 글로벌 플랫폼" data-en="B2B/B2C Global Platform">B2B/B2C 통합 글로벌 플랫폼</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Projects -->
+                <div class="project-panel hidden" data-panel="api">
+                    <div class="project-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="project-card card-hover p-4 sm:p-6 bg-white rounded-lg shadow-lg"
+                             data-title-ko="실시간 API 통합 시스템"
+                             data-title-en="Real-time API Integration System"
+                             data-description-ko="다양한 외부 API와 실시간 데이터 동기화 시스템 구축. REST API, GraphQL, WebSocket을 활용한 통합 솔루션."
+                             data-description-en="Built real-time data synchronization system with various external APIs. Integrated solution using REST API, GraphQL, and WebSocket.">
+                            <h3 class="text-lg sm:text-xl font-bold mb-2" data-ko="실시간 API 통합 시스템" data-en="Real-time API Integration">실시간 API 통합 시스템</h3>
+                            <p class="text-sm sm:text-base text-gray-600" data-ko="REST/GraphQL/WebSocket 통합" data-en="REST/GraphQL/WebSocket Integration">REST/GraphQL/WebSocket 통합</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERP Projects -->
+                <div class="project-panel hidden" data-panel="erp">
+                    <div class="project-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="project-card card-hover p-4 sm:p-6 bg-white rounded-lg shadow-lg"
+                             data-title-ko="중소기업 맞춤형 ERP"
+                             data-title-en="Custom ERP for SMEs"
+                             data-description-ko="재고관리, 생산관리, 회계 모듈을 포함한 통합 ERP 시스템 구축. 실시간 대시보드와 보고서 자동화."
+                             data-description-en="Built integrated ERP system including inventory, production, and accounting modules. Real-time dashboard and automated reporting.">
+                            <h3 class="text-lg sm:text-xl font-bold mb-2" data-ko="중소기업 맞춤형 ERP" data-en="Custom ERP for SMEs">중소기업 맞춤형 ERP</h3>
+                            <p class="text-sm sm:text-base text-gray-600" data-ko="통합 비즈니스 관리 시스템" data-en="Integrated Business Management">통합 비즈니스 관리 시스템</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Automation Projects -->
+                <div class="project-panel hidden" data-panel="automation">
+                    <div class="project-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="project-card card-hover p-4 sm:p-6 bg-white rounded-lg shadow-lg"
+                             data-title-ko="업무 자동화 매크로"
+                             data-title-en="Business Process Automation"
+                             data-description-ko="Python과 Selenium을 활용한 반복 업무 자동화. RPA 솔루션으로 업무 효율성 80% 향상."
+                             data-description-en="Automated repetitive tasks using Python and Selenium. Improved work efficiency by 80% with RPA solution.">
+                            <h3 class="text-lg sm:text-xl font-bold mb-2" data-ko="업무 자동화 매크로" data-en="Business Process Automation">업무 자동화 매크로</h3>
+                            <p class="text-sm sm:text-base text-gray-600" data-ko="RPA 솔루션 구축" data-en="RPA Solution Implementation">RPA 솔루션 구축</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database Projects -->
+                <div class="project-panel hidden" data-panel="database">
+                    <div class="project-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="project-card card-hover p-4 sm:p-6 bg-white rounded-lg shadow-lg"
+                             data-title-ko="대용량 데이터베이스 최적화"
+                             data-title-en="Large-scale Database Optimization"
+                             data-description-ko="MySQL/MongoDB 성능 최적화 및 샤딩 구현. 쿼리 속도 70% 개선 및 안정성 확보."
+                             data-description-en="MySQL/MongoDB performance optimization and sharding implementation. 70% query speed improvement and stability secured.">
+                            <h3 class="text-lg sm:text-xl font-bold mb-2" data-ko="대용량 데이터베이스 최적화" data-en="Large-scale DB Optimization">대용량 데이터베이스 최적화</h3>
+                            <p class="text-sm sm:text-base text-gray-600" data-ko="성능 최적화 및 샤딩" data-en="Performance Optimization & Sharding">성능 최적화 및 샤딩</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cloud Projects -->
+                <div class="project-panel hidden" data-panel="cloud">
+                    <div class="project-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                        <div class="project-card card-hover p-4 sm:p-6 bg-white rounded-lg shadow-lg"
+                             data-title-ko="AWS 클라우드 마이그레이션"
+                             data-title-en="AWS Cloud Migration"
+                             data-description-ko="온프레미스 시스템을 AWS로 완전 마이그레이션. Auto Scaling과 CI/CD 파이프라인 구축."
+                             data-description-en="Complete migration from on-premise to AWS. Implemented Auto Scaling and CI/CD pipeline.">
+                            <h3 class="text-lg sm:text-xl font-bold mb-2" data-ko="AWS 클라우드 마이그레이션" data-en="AWS Cloud Migration">AWS 클라우드 마이그레이션</h3>
+                            <p class="text-sm sm:text-base text-gray-600" data-ko="Auto Scaling & CI/CD" data-en="Auto Scaling & CI/CD">Auto Scaling & CI/CD</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other project panels will be similar -->
+            </div>
+        </section>
+
+        <!-- GitHub Section -->
+        <section id="github" class="fade-in mb-8 sm:mb-12 lg:mb-16">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 lg:mb-12" data-ko="깃허브" data-en="GitHub">깃허브</h2>
+            <div class="max-w-sm sm:max-w-md lg:max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-8">
+                <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                    <img src="https://avatars.githubusercontent.com/u/45973201?v=4" alt="GitHub Avatar" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full">
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl sm:text-2xl font-bold mb-2">YKLee98</h3>
+                        <p class="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4" data-ko="다양한 프로젝트 소스코드 확인" data-en="Check out various project source codes">다양한 프로젝트 소스코드 확인</p>
+                        <a href="https://github.com/YKLee98" target="_blank" rel="noopener noreferrer" class="btn-primary inline-block w-full sm:w-auto">
+                            <span data-ko="방문하기" data-en="Visit GitHub">방문하기</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="fade-in mb-8 sm:mb-12 lg:mb-16">
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 lg:mb-12" data-ko="연락처" data-en="Contact">연락처</h2>
+            <div class="max-w-sm sm:max-w-md lg:max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-4 sm:p-6 lg:p-8">
+                <form id="contact-form" action="https://formspree.io/f/myzprwan" method="POST">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+                        <div>
+                            <label for="name" class="block mb-2 text-sm sm:text-base font-semibold" data-ko="이름" data-en="Name">이름</label>
+                            <input type="text" id="name" name="name" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2 text-sm sm:text-base font-semibold" data-ko="이메일" data-en="Email">이메일</label>
+                            <input type="email" id="email" name="_replyto" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        </div>
+                    </div>
+                    <div class="mb-4 sm:mb-6">
+                        <label for="subject" class="block mb-2 text-sm sm:text-base font-semibold" data-ko="제목" data-en="Subject">제목</label>
+                        <input type="text" id="subject" name="subject" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    </div>
+                    <div class="mb-4 sm:mb-6">
+                        <label for="message" class="block mb-2 text-sm sm:text-base font-semibold" data-ko="메시지" data-en="Message">메시지</label>
+                        <textarea id="message" name="message" rows="4" sm:rows="5" required class="w-full px-3 sm:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <span data-ko="메시지 보내기" data-en="Send Message">메시지 보내기</span>
+                    </button>
+                </form>
+                <div id="form-status" class="mt-4 text-center text-sm sm:text-base"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6 sm:py-8 text-center no-print">
+        <div class="container mx-auto px-4">
+            <p class="text-xs sm:text-sm text-gray-600">&copy; 2024 Yukyung Lee. All Rights Reserved.</p>
+            <p class="text-xs text-gray-500 mt-2">Enterprise-Grade Portfolio</p>
+            <div class="mt-4 text-xs text-gray-400">
+                <span class="inline-block mx-2">Responsive Design</span>
+                <span class="hidden sm:inline">•</span>
+                <span class="inline-block mx-2">Mobile Optimized</span>
+                <span class="hidden sm:inline">•</span>
+                <span class="inline-block mx-2">Cross-Browser Compatible</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="project-modal" class="modal-backdrop fixed inset-0 z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-sm sm:max-w-md lg:max-w-3xl max-h-[90vh] sm:max-h-[85vh] overflow-y-auto">
+            <div class="p-4 sm:p-6 lg:p-8">
+                <button id="close-modal" class="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-500 hover:text-gray-700 p-2">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+                <h2 id="modal-title" class="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 pr-8"></h2>
+                <p id="modal-description" class="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6"></p>
+                <button id="detail-btn" class="btn-primary w-full sm:w-auto mb-4">
+                    <span data-ko="상세내용 확인" data-en="View Details">상세내용 확인</span>
+                </button>
+                <div id="detail-container" class="hidden">
+                    <div id="detail-loader" class="flex items-center justify-center py-6 sm:py-8 hidden">
+                        <div class="spinner"></div>
+                        <p class="ml-3 text-sm sm:text-base text-gray-600" data-ko="로딩 중..." data-en="Loading...">로딩 중...</p>
+                    </div>
+                    <div id="detail-content" class="text-sm sm:text-base"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enterprise-grade JavaScript Application
+        (function() {
+            'use strict';
+
+            // Application State Management
+            const AppState = {
+                theme: localStorage.getItem('theme') || 'light',
+                language: localStorage.getItem('language') || 'ko',
+                currentProject: null,
+                isModalOpen: false
+            };
+
+            // DOM Element Registry
+            const Elements = {
+                get: (id) => document.getElementById(id),
+                getAll: (selector) => document.querySelectorAll(selector),
+                body: document.body,
+                themeToggle: null,
+                langToggle: null,
+                modal: null,
+                modalTitle: null,
+                modalDescription: null,
+                detailBtn: null,
+                detailContainer: null,
+                detailLoader: null,
+                detailContent: null,
+                closeModal: null,
+                contactForm: null,
+                formStatus: null
+            };
+
+            // Initialize element references
+            function initializeElements() {
+                Elements.themeToggle = Elements.get('theme-toggle');
+                Elements.langToggle = Elements.get('lang-toggle');
+                Elements.modal = Elements.get('project-modal');
+                Elements.modalTitle = Elements.get('modal-title');
+                Elements.modalDescription = Elements.get('modal-description');
+                Elements.detailBtn = Elements.get('detail-btn');
+                Elements.detailContainer = Elements.get('detail-container');
+                Elements.detailLoader = Elements.get('detail-loader');
+                Elements.detailContent = Elements.get('detail-content');
+                Elements.closeModal = Elements.get('close-modal');
+                Elements.contactForm = Elements.get('contact-form');
+                Elements.formStatus = Elements.get('form-status');
+                Elements.mobileMenuBtn = Elements.get('mobile-menu-btn');
+                Elements.mobileNav = Elements.get('mobile-nav');
+            }
+
+            // Mobile Menu Manager
+            const MobileMenuManager = {
+                init() {
+                    Elements.mobileMenuBtn?.addEventListener('click', () => this.toggle());
+                    
+                    // Close mobile menu when clicking a link
+                    Elements.getAll('#mobile-nav a').forEach(link => {
+                        link.addEventListener('click', () => this.close());
+                    });
+                    
+                    // Handle resize events
+                    let resizeTimer;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(() => {
+                            if (window.innerWidth >= 768 && Elements.mobileNav) {
+                                Elements.mobileNav.classList.add('hidden');
+                            }
+                        }, 250);
+                    });
+                },
+
+                toggle() {
+                    if (Elements.mobileNav) {
+                        Elements.mobileNav.classList.toggle('hidden');
+                    }
+                },
+
+                close() {
+                    if (Elements.mobileNav) {
+                        Elements.mobileNav.classList.add('hidden');
+                    }
+                }
+            };
+
+            // Theme Manager
+            const ThemeManager = {
+                init() {
+                    this.apply(AppState.theme);
+                    Elements.themeToggle?.addEventListener('click', () => this.toggle());
+                },
+
+                apply(theme) {
+                    if (theme === 'dark') {
+                        Elements.body.classList.add('dark');
+                        Elements.themeToggle?.classList.add('active');
+                    } else {
+                        Elements.body.classList.remove('dark');
+                        Elements.themeToggle?.classList.remove('active');
+                    }
+                    AppState.theme = theme;
+                    localStorage.setItem('theme', theme);
+                },
+
+                toggle() {
+                    const newTheme = AppState.theme === 'dark' ? 'light' : 'dark';
+                    this.apply(newTheme);
+                }
+            };
+
+            // Language Manager
+            const LanguageManager = {
+                init() {
+                    this.apply(AppState.language);
+                    Elements.langToggle?.addEventListener('click', () => this.toggle());
+                },
+
+                apply(lang) {
+                    Elements.getAll('[data-ko]').forEach(el => {
+                        const text = el.getAttribute(`data-${lang}`) || el.getAttribute('data-ko');
+                        if (text) el.textContent = text;
+                    });
+
+                    const langIndicator = Elements.langToggle?.querySelector('.toggle-switch-handle');
+                    if (langIndicator) {
+                        langIndicator.textContent = lang.toUpperCase();
+                    }
+
+                    if (lang === 'en') {
+                        Elements.langToggle?.classList.add('active');
+                    } else {
+                        Elements.langToggle?.classList.remove('active');
+                    }
+
+                    AppState.language = lang;
+                    localStorage.setItem('language', lang);
+                },
+
+                toggle() {
+                    const newLang = AppState.language === 'ko' ? 'en' : 'ko';
+                    this.apply(newLang);
+                }
+            };
+
+            // Project Manager
+            const ProjectManager = {
+                init() {
+                    // Initialize tabs
+                    Elements.getAll('.tab').forEach(tab => {
+                        tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+                    });
+
+                    // Initialize project cards
+                    Elements.getAll('.project-card').forEach(card => {
+                        card.addEventListener('click', () => {
+                            const titleKey = `title-${AppState.language}`;
+                            const descKey = `description-${AppState.language}`;
+                            const title = card.dataset[titleKey] || card.dataset['title-ko'];
+                            const description = card.dataset[descKey] || card.dataset['description-ko'];
+                            ModalManager.open(title, description);
+                        });
+                    });
+
+                    // Initialize menu items
+                    Elements.getAll('.project-menu-item').forEach(item => {
+                        item.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            this.switchTab(item.dataset.tab);
+                            document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                        });
+                    });
+                },
+
+                switchTab(tabName) {
+                    // Update tabs
+                    Elements.getAll('.tab').forEach(tab => {
+                        if (tab.dataset.tab === tabName) {
+                            tab.classList.add('active');
+                        } else {
+                            tab.classList.remove('active');
+                        }
+                    });
+
+                    // Update panels
+                    Elements.getAll('.project-panel').forEach(panel => {
+                        if (panel.dataset.panel === tabName) {
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    });
+                },
+
+                generateDetailContent(title, description) {
+                    const lang = AppState.language;
+                    const techStack = ['Node.js', 'React', 'MySQL', 'AWS', 'Docker', 'Redis', 'GraphQL'];
+                    
+                    const content = {
+                        ko: `
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">기술 스택</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${techStack.map(tech => `<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">시스템 아키텍처</h3>
+                                    <p class="text-gray-700">마이크로서비스 아키텍처 기반으로 각 도메인별 독립적인 서비스 구축. Docker와 Kubernetes를 활용한 컨테이너 오케스트레이션.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">주요 기능</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>실시간 데이터 동기화</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>자동화된 배포 파이프라인</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>99.9% 가용성 보장</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">성과</h3>
+                                    <p class="text-gray-700">처리 속도 60% 향상, 운영 비용 40% 절감, 사용자 만족도 95% 달성</p>
+                                </div>
+                            </div>
+                        `,
+                        en: `
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">Tech Stack</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        ${techStack.map(tech => `<span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">System Architecture</h3>
+                                    <p class="text-gray-700">Built independent services for each domain based on microservices architecture. Container orchestration using Docker and Kubernetes.</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">Key Features</h3>
+                                    <ul class="space-y-2">
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Real-time data synchronization</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Automated deployment pipeline</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>99.9% availability guarantee</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold mb-3 text-purple-600">Results</h3>
+                                    <p class="text-gray-700">60% improvement in processing speed, 40% reduction in operational costs, 95% user satisfaction achieved</p>
+                                </div>
+                            </div>
+                        `
+                    };
+
+                    return content[lang] || content.ko;
+                }
+            };
+
+            // Modal Manager
+            const ModalManager = {
+                init() {
+                    Elements.closeModal?.addEventListener('click', () => this.close());
+                    Elements.modal?.addEventListener('click', (e) => {
+                        if (e.target === Elements.modal) this.close();
+                    });
+                    Elements.detailBtn?.addEventListener('click', () => this.showDetails());
+
+                    // ESC key to close
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape' && AppState.isModalOpen) {
+                            this.close();
+                        }
+                    });
+                },
+
+                open(title, description) {
+                    if (!Elements.modal) return;
+                    
+                    AppState.currentProject = { title, description };
+                    Elements.modalTitle.textContent = title;
+                    Elements.modalDescription.textContent = description;
+                    Elements.detailContainer.classList.add('hidden');
+                    Elements.detailContent.innerHTML = '';
+                    
+                    Elements.modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        Elements.modal.classList.add('show');
+                    }, 10);
+                    
+                    AppState.isModalOpen = true;
+                    Elements.body.style.overflow = 'hidden';
+                },
+
+                close() {
+                    if (!Elements.modal) return;
+                    
+                    Elements.modal.classList.remove('show');
+                    setTimeout(() => {
+                        Elements.modal.classList.add('hidden');
+                    }, 300);
+                    
+                    AppState.isModalOpen = false;
+                    AppState.currentProject = null;
+                    Elements.body.style.overflow = '';
+                },
+
+                async showDetails() {
+                    if (!AppState.currentProject) return;
+                    
+                    try {
+                        Elements.detailContainer.classList.remove('hidden');
+                        Elements.detailLoader.classList.remove('hidden');
+                        Elements.detailContent.innerHTML = '';
+                        
+                        // Simulate loading
+                        await new Promise(resolve => setTimeout(resolve, 800));
+                        
+                        const content = ProjectManager.generateDetailContent(
+                            AppState.currentProject.title,
+                            AppState.currentProject.description
+                        );
+                        
+                        Elements.detailLoader.classList.add('hidden');
+                        Elements.detailContent.innerHTML = content;
+                        
+                    } catch (error) {
+                        console.error('Error loading details:', error);
+                        Elements.detailLoader.classList.add('hidden');
+                        Elements.detailContent.innerHTML = '<p class="text-red-500">Error loading details. Please try again.</p>';
+                    }
+                }
+            };
+
+            // Form Manager
+            const FormManager = {
+                init() {
+                    Elements.contactForm?.addEventListener('submit', (e) => this.handleSubmit(e));
+                },
+
+                async handleSubmit(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(Elements.contactForm);
+                    const submitBtn = Elements.contactForm.querySelector('button[type="submit"]');
+                    
+                    submitBtn.disabled = true;
+                    this.showStatus('sending');
+                    
+                    try {
+                        const response = await fetch('https://formspree.io/f/myzprwan', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            this.showStatus('success');
+                            Elements.contactForm.reset();
+                        } else {
+                            throw new Error('Form submission failed');
+                        }
+                    } catch (error) {
+                        console.error('Form error:', error);
+                        this.showStatus('error');
+                    } finally {
+                        submitBtn.disabled = false;
+                        setTimeout(() => this.clearStatus(), 5000);
+                    }
+                },
+
+                showStatus(type) {
+                    const messages = {
+                        sending: {
+                            ko: '<p class="text-blue-500">메시지를 보내는 중...</p>',
+                            en: '<p class="text-blue-500">Sending message...</p>'
+                        },
+                        success: {
+                            ko: '<p class="text-green-500">메시지가 성공적으로 전송되었습니다!</p>',
+                            en: '<p class="text-green-500">Message sent successfully!</p>'
+                        },
+                        error: {
+                            ko: '<p class="text-red-500">전송 실패. 다시 시도해주세요.</p>',
+                            en: '<p class="text-red-500">Failed to send. Please try again.</p>'
+                        }
+                    };
+                    
+                    Elements.formStatus.innerHTML = messages[type][AppState.language];
+                },
+
+                clearStatus() {
+                    Elements.formStatus.innerHTML = '';
+                }
+            };
+
+            // Animation Observer
+            const AnimationObserver = {
+                init() {
+                    const observer = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('visible');
+                                }
+                            });
+                        },
+                        { threshold: 0.1 }
+                    );
+                    
+                    Elements.getAll('.fade-in').forEach(el => observer.observe(el));
+                }
+            };
+
+            // Smooth Scroll
+            const SmoothScroll = {
+                init() {
+                    Elements.getAll('a[href^="#"]').forEach(anchor => {
+                        anchor.addEventListener('click', function(e) {
+                            const href = this.getAttribute('href');
+                            if (href === '#') return;
+                            
+                            const target = document.querySelector(href);
+                            if (target) {
+                                e.preventDefault();
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        });
+                    });
+                }
+            };
+
+            // Application Initialization
+            function initialize() {
+                try {
+                    // Initialize DOM elements
+                    initializeElements();
+                    
+                    // Initialize managers
+                    ThemeManager.init();
+                    LanguageManager.init();
+                    ProjectManager.init();
+                    ModalManager.init();
+                    FormManager.init();
+                    AnimationObserver.init();
+                    SmoothScroll.init();
+                    MobileMenuManager.init();
+                    
+                    console.log('Enterprise Portfolio Application initialized successfully');
+                    console.log(`Viewport: ${window.innerWidth}x${window.innerHeight}`);
+                    console.log(`Device: ${/Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'}`);
+                } catch (error) {
+                    console.error('Initialization error:', error);
+                }
+            }
+
+            // Start application
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initialize);
+            } else {
+                initialize();
+            }
+
+            // Expose API for debugging (only in development)
+            if (window.location.hostname === 'localhost') {
+                window.Portfolio = {
+                    state: AppState,
+                    theme: ThemeManager,
+                    language: LanguageManager,
+                    modal: ModalManager
+                };
+            }
+
+        })();
+    </script>
+</body>
+</html>
